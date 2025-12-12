@@ -1,0 +1,139 @@
+"""run full training and replay"""
+
+step 1: run training under comp400 folder
+
+python test.py
+
+
+
+step 2: link the host and device traces
+
+chakra_trace_link \
+    --chakra-host-trace /home/2023/yyin2/comp400/result/host_0.json \
+    --chakra-device-trace /home/2023/yyin2/comp400/result/device_0.json \
+    --rank 0 \
+    --checkpoint-metadata /home/2023/yyin2/comp400/result/checkpoint_metadata_0.json \
+    --output-file /home/2023/yyin2/comp400/result/chakra_linked_0.json
+
+
+step 3: test using et_replay
+
+"""copy the chakra_linked_0.json to chakra_replay/tests/inputs/chakra_linked_0.json"""
+cp /home/2023/yyin2/comp400/result/chakra_linked_0.json /home/2023/yyin2/comp400/chakra_replay/tests/inputs/chakra_linked_0.json
+
+
+"""cd to chakra_replay folder"""
+cd /home/2023/yyin2/comp400/chakra_replay
+
+
+"""run et_replay"""
+
+python3 -m et_replay.tools.et_replay \
+    --input tests/inputs/chakra_linked_0.json \
+    --replay-config tests/inputs/skip_set.json \
+    --checkpoint-profile \
+    --checkpoint-profile-output /home/2023/yyin2/comp400/result/simulated/checkpoint_profile.json \
+    -c --profile-replay
+
+
+
+
+
+
+3449.84 ms
+3295.15 ms
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// test using et_replay
+// sample test
+// it takes in a .json linked file not the .et and not the converted .json from .et
+// it can only run in chakra_replay folder
+python3 -m et_replay.tools.et_replay --input /home/2023/yyin2/comp400/chakra_replay/tests/inputs/resnet_et.json -c --profile-replay
+python3 -m et_replay.tools.et_replay --input tests/inputs/resnet_et.json -c --profile-replay
+
+"""mine --------- test with og linked (no checkpoint)"""
+python3 -m et_replay.tools.et_replay --input tests/inputs/ogchakra_linked_0_no_set.json -c --profile-replay
+"""mine --------- test with new linked (with checkpoint)"""
+python3 -m et_replay.tools.et_replay \
+       --input tests/inputs/chakra_linked_0.json \
+       --replay-config tests/inputs/skip_set.json \
+       -c --profile-replay
+
+
+python3 -m et_replay.tools.et_replay \
+    --input tests/inputs/chakra_linked_0.json \
+    --replay-config tests/inputs/skip_set.json \
+    --checkpoint-profile \
+    -c --profile-replay
+
+
+python3 -m et_replay.tools.et_replay \
+    --input tests/inputs/chakra_linked_0.json \
+    --replay-config tests/inputs/skip_set.json \
+    --checkpoint-profile \
+    --checkpoint-profile-output /home/2023/yyin2/comp400/result/simulated/checkpoint_profile.json \
+    -c --profile-replay
+
+// jsonizer
+chakra_jsonizer \
+    --input_filename /home/2023/yyin2/comp400/result/ogchakra_trace_rank0.et \
+    --output_filename /home/2023/yyin2/comp400/result/ogchakra_trace_rank0_converted.json
+
+
+
+chakra_converter PyTorch \
+    --input /home/2023/yyin2/comp400/result/ogchakra_linked_0.json \
+    --output /home/2023/yyin2/comp400/result/ogchakra_trace_rank0.et \
+    --simulate \
+    --checkpoint-metadata /home/2023/yyin2/comp400/result/checkpoint_metadata_0.json
+
+
+
+
+
+// drop set 
+python - <<'PY'
+from drop_set import drop_aten_set_nodes
+drop_aten_set_nodes(
+    "/home/2023/yyin2/comp400/result/ogchakra_linked_0.json",
+    "/home/2023/yyin2/comp400/result/ogchakra_linked_0_no_set.json",
+)
+PY
+
+/home/2023/yyin2/comp400/checkpoints
+
+python3 -m et_replay.tools.et_replay \
+    --input tests/inputs/chakra_linked_0.json \
+    --replay-config tests/inputs/skip_set.json \
+    --checkpoint-output-dir /home/2023/yyin2/comp400/checkpoints \
+    -c --profile-replay
+
+
+
+
+
+
