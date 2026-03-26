@@ -37,18 +37,4 @@ full_run_cli
 
 ## Demo
 
-![demo1](demo1.gif)
-![demo2](demo2.gif)
-![demo3](demo3.gif)
-![demo4](demo4.gif)
-![demo5](demo5.gif)
-![demo6](demo6.gif)
-![demo7](demo7.gif)
-![demo8](demo8.gif)
-![demo9](demo9.gif)
-![demo10](demo10.gif)
-![demo11](demo11.gif)
-![demo12](demo12.gif)
-![demo13](demo13.gif)
-![demo14](demo14.gif)
-![demo15](demo15.gif)
+![demo](demo.gif)
