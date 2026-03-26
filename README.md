@@ -37,4 +37,6 @@ full_run_cli
 
 ## Demo
 
+Full walkthrough: [YouTube](https://youtu.be/IR1J9kq53H0)
+
 ![demo](demo.gif)
