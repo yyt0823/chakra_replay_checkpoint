@@ -32,3 +32,6 @@ Replace ET-Replay with the modified replay engine that supports CHECKPOINT_NODE
 Use the updated command-line interface defined in:
 
 full_run_cli
+
+
+vedio: https://youtu.be/IR1J9kq53H0                                                                                        
